@@ -35,7 +35,7 @@ x_test = x_arr[0: 10]
 y_test = H_vals_t[0: 10]
 err_test = H_err_vals_t[0: 10]
 
-#Define a simple neural network model
+#simple NN
 model = tf.keras.Sequential([
     tf.keras.layers.Dense(units=20, activation='relu', input_shape=[1]),
     tf.keras.layers.Dense(units=20, activation='relu'),
@@ -44,17 +44,16 @@ model = tf.keras.Sequential([
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
-model.fit(np.log(x_train), np.log(y_train), epochs=1000, verbose=1)
+model.fit(x_train, y_train, epochs=1000, verbose=1)
 
-x_pred = np.log(np.linspace(0.1, 1, 100))
+x_pred = np.linspace(0.1, 1, 100)
 y_pred = model.predict(x_pred)
 
 plt.scatter(x_train, y_train, label='Training data', marker='o')
 plt.scatter(x_test, y_test, label='Testing data', marker='.')
-plt.plot(np.exp(x_pred), np.exp(y_pred), color='red', label='Extrapolated prediction')
+plt.plot(x_pred, y_pred, color='red', label='Extrapolated prediction')
 plt.xlabel('X')
 plt.ylabel(r'$H(X, \zeta = 0, t = 0)$')
 plt.title('Neural network attempt - Training on log of the data')
 plt.legend()
-plt.yscale('log')
 plt.savefig('nn_ex.png')
