@@ -1,1 +1,1 @@
-# tf_for_lattice_data
+# TensorFlow running a neural network on lattice data
